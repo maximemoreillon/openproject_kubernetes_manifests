@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: openproject
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: openproject/community:11
+        args:
+        - ./docker/prod/web
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - secretRef:
+            name: environment
+        volumeMounts:
+          - mountPath: /var/openproject/assets
+            name: opdata
+      volumes:
+        - name: opdata
+          persistentVolumeClaim:
+            claimName: opdata
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: openproject
+spec:
+  type: ClusterIP
+  selector:
+    app: web
+  ports:
+  - port: 8080

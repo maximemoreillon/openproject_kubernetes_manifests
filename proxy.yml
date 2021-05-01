@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy
+  namespace: openproject
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy
+  template:
+    metadata:
+      labels:
+        app: proxy
+    spec:
+      containers:
+      - name: proxy
+        image: openproject/community:11
+        args:
+        - ./docker/prod/proxy
+        ports:
+        - containerPort: 80
+        env:
+        - name: APP_HOST
+          value: web
+        - name: OPENPROJECT_RAILS__RELATIVE__URL__ROOT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy
+  namespace: openproject
+spec:
+  type: NodePort
+  selector:
+    app: proxy
+  ports:
+  - nodePort: 30457
+    port: 80

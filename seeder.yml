@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: seeder
+  namespace: openproject
+spec:
+  containers:
+    - args:
+        - ./docker/prod/seeder
+      envFrom:
+        - secretRef:
+           name: environment
+      image: openproject/community:11
+      name: seeder
+      volumeMounts:
+        - mountPath: /var/openproject/assets
+          name: opdata
+  restartPolicy: OnFailure
+  volumes:
+    - name: opdata
+      persistentVolumeClaim:
+        claimName: opdata

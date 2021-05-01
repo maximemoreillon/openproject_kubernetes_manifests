@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cron
+  namespace: openproject
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cron
+  template:
+    metadata:
+      labels:
+        app: cron
+    spec:
+      containers:
+      - name: cron
+        image: openproject/community:11
+        args:
+        - ./docker/prod/cron
+        envFrom:
+        - secretRef:
+            name: environment
+        volumeMounts:
+          - mountPath: /var/openproject/assets
+            name: opdata
+      volumes:
+        - name: opdata
+          persistentVolumeClaim:
+            claimName: opdata
