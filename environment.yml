@@ -9,5 +9,6 @@ stringData:
   OPENPROJECT_CACHE__MEMCACHE__SERVER: "cache:11211"
   DATABASE_URL: "postgres://postgres:keyboardcat@postgres/openproject"
   USE_PUMA: "true"
-  # set to true to enable the email receiving feature. See ./docker/cron for more options
+  POSTGRES_DB: openproject
+  POSTGRES_PASSWORD: keyboardcat
   IMAP_ENABLED: "false"

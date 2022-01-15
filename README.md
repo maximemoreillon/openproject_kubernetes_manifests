@@ -11,5 +11,5 @@ kubectl apply -f ./
 
 Here are some settings that might require configuration:
 
-* Database password in environment.yml and postgres.yml
+* Database credentials in environment.yml
 * NodePort in proxy.yml

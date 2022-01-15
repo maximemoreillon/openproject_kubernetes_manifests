@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: cron
-        image: openproject/community:11
+        image: openproject/community:12
         args:
         - ./docker/prod/cron
         envFrom:

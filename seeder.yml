@@ -10,7 +10,7 @@ spec:
       envFrom:
         - secretRef:
            name: environment
-      image: openproject/community:11
+      image: openproject/community:12
       name: seeder
       volumeMounts:
         - mountPath: /var/openproject/assets

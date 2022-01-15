@@ -27,14 +27,12 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres:10
+        image: postgres:13
         ports:
         - containerPort: 5432
-        env:
-        - name: POSTGRES_DB
-          value: openproject
-        - name: POSTGRES_PASSWORD
-          value: keyboardcat
+        envFrom:
+        - secretRef:
+            name: environment
         volumeMounts:
           - mountPath: /var/lib/postgresql/data
             name: pgdata
@@ -54,4 +52,4 @@ spec:
     app: postgres
   ports:
   - port: 5432
-    nodePort: 30432
+    nodePort: 30431
