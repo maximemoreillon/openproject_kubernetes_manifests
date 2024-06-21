@@ -2,6 +2,8 @@
 
 Those are manifests to install OpenProject on a Kubernetes cluster
 
+NOTE: OpenProject now provides a Helm chart, making this repository irrelevant
+
 ## Usage
 ```
 kubectl apply -f ./
